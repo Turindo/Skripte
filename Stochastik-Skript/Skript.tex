@@ -10,9 +10,11 @@
 \begin{document}
 \maketitle
 \newpage
+\tableofcontents
+\newpage
 
 Literatur: Sheldon Ross: Introduction to probability models.
-\section*{0. Einführendes Beispiel}
+\section{0. Einführendes Beispiel}
 \paragraph{Münzexperiment}
 Bei 50 aufeinanderfolgenden Würfen einer fairen Münze. Mit welcher Wahrscheinlichkeit erscheint im laufe der Würfe 5 mal hintereinander Zahl?
 
@@ -23,8 +25,8 @@ Dieses Bsp. zeigt:
 \item intuitive Schätzung ist oft weit von der tatsächlichen WSK entfernt.
 \item Pechsträhne bei Münzwürfen sehr häufig
 \end{itemize}
-\section*{1. Modelierung von Zufallsexperimenten}
-\subsection*{Ergebnisräume und Ereignisse}
+\section{1. Modelierung von Zufallsexperimenten}
+\subsection{Ergebnisräume und Ereignisse}
 Ein Ergebnisraum (ER) ist eine Menge, die alle möglichen Ausgänge eines Zufallsexperiments umfasst.
 Bezeichnung: $\Omega$.
 
@@ -78,7 +80,7 @@ Ein Ereignis heißt Elementarereignis oder Ergebnis, falls das Ereignis nur ein 
 
 \subsection*{1.2 Wahrscheinlichkeitsmaß (WM)}
 \newcommand{\abbildung}{$P: \mathcal{P}(\Omega) \rightarrow [0;1]$}
-\paragraph{Definition 1.1.}  Sei $\Omega \neq \emptyset$ abzählbar. Das WSK-maß ist eine Abbildung $P:\mathcal{P}(\Omega)$.
+\paragraph{Definition 1.1}  Sei $\Omega \neq \emptyset$ abzählbar. Das WSK-maß ist eine Abbildung $P:\mathcal{P}(\Omega)$.
 $$P: \mathcal{P}(\Omega) \rightarrow [0;1]$$
 mit zwei Eigenschaften.
 Eine Abbildung \\abbildung heißt WM, falls gilt:
@@ -86,12 +88,163 @@ Eine Abbildung \\abbildung heißt WM, falls gilt:
 \item[(W1)] $P(\Omega) = 1$
 \item[(W2)] Sind $A_1, A_2, ..$ disjunkte Ereignisse (d. h. $A_i \cap A_j = \emptyset$, falls $i \neq j$)
 $$P\left(\bigcup_{n=1}^\infty\right)  = \sum_{n =1}^\infty P(A_n)$$ HIER FEHLT ETWAS
+\end{itemize}
 
 Man sagt $P(A)$ ist die WSK des Ereignisses A.
 
 Beispiele für WSK-maße
+\begin{itemize}
+\item[a)]  Modell des einmaligen Münzwurfes einer fairen Münze
+$\Omega = \{K,Z\}$ und P WM mit $P(\{K\}) = P(\{Z\}) = \frac{1}{2}$ 
+\item[b)] Modell eines fairen Würfelwurfs $\Omega = {1,2,3,4,5,6}$ und P WM mit $P({1}) = P({2}) = ...  = P({6}) = \frac{1}{6}$
+\item[c)] La-Place-Experiment: alle Ergebnisse mind. Gleichwahrscheinlich (Verallgemeinerung von a) und b)). Sei $\Omega$ eine endliche Menge und P WM $$P(A) := \frac{|A|}{|\Omega|}, A \in \mathcal{P}(\Omega)$$
+
+$|A|$-Möglichkeit von A-Kardinalität: Anzahl der Elemente in A
+\end{itemize}
+
+\paragraph{Lemma / Satz 1.2 (Eigenschaften von WM)}
+
+Sei \abbildung ein WM. Dann gilt:
+\begin{itemize}
+\item[(1)]$P(\emptyset) = 0$
+\item[(2)]$A_1, ..., A_n$ disjunkt $\Rightarrow P\left(\bigcup_{i=1}^n A_i\right) = \sum_{i=1}^n P(A_i)$ (endliche Additivität)
+\end{itemize}
+Des Weiteren gilt für alle $A, B \in \mathcal{P}(\Omega)$.
+
+\begin{itemize}
+\item[(3)]$A \subset B \Rightarrow P(A) \le P(B)$ (Monotonieeigenschaft des WM)
+\item[(4)] $P(A^C) = 1-P(A)$
+\item[(5)] $P(A \setminus B) = P(A) - P(A \cap B)$
+\item[(6)] $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+\end{itemize}
+
+\paragraph{Beweis}
+\begin{itemize}
+\item[(1)]Setzen $A_n := \emptyset$ für alle $n \geq 1$\\
+Dann folgt aus (W2)
+$$P(\emptyset) = P\left(\bigcup_{k=1}^\infty \right) = \sum_{n=1}^\infty P(A_n) = P(\emptyset) + P(\emptyset) + ...$$
+Da $P(\emptyset) \in [0;1]$ muss $P(\emptyset) = 0$ gelten.
+\item[(2)] Sei $A_1, ..., A_n$ beliebige disjunkte Ereignbisse und $A_m \neq \emptyset$ für alle $m > n$. Dann folgt aus (W2) und (1)
+$$P\left(\bigcup_{i=1}^n  A_i\right) = \underbrace{ P\left(\bigcup_{i=1}^\infty  A_i\right)}_{\text{Bei } i \geq (n+1) \text{ füge } \emptyset \text{ hinzu}} = P(A_i) = \sum_{i=1}^\infty P(A_i) = \sum_{i=1}^n P(A_i)$$
+
+\item[(3)] Sei $A \subset B$. Dann ist disjunkte Vereinigung von $A$ und $B \setminus A$. 
+\\Wegen (2) gilt $P(B) = P(A) + \underbrace{P(B \setminus A)}_{\geq 0} \geq P(A)$
+
+\item[(4)] Beachte: $\Omega$ ist disjunkte Vereinigung von $A$ und $A^C$.\\
+Also wegen (2):
+$P(\Omega) = P(A) + P(A^C)$\\
+Da $P(\Omega) = 1$, folgt $P(A^C) = 1-P(A)$
+
+\item[(4)] $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+\item[(5 \& 6)] ÜBUNG
 
 \end{itemize}
+
+\fbox{\begin{minipage}{0.8\textwidth}
+\paragraph{Bemerkung:} Sei $\Omega$ abzählung und P ein WM auf $\mathcal{P}(\Omega$). Jedes Ereignis $A \subset \Omega$ ist abzählbare Vereinigung der Elementarereignisse $\{\omega\}$ mit $\omega \in A$. Also folgt aus (W2) und (2):
+\begin{align}
+P(A) = \sum_{\omega \in A} P(\{\omega\})
+\end{align}
+\end{minipage}}
+
+Ausblick: Man kann WM auf überabzählbaren ER definieren: Eigenschaften (1)-(6) gelten dann noch, aber Eigenschaft (1.1.) nicht mehr!
+
+\subsubsection{\underline{Beispiel 1.3} (Lange Sequenzen von Zahl-Würfen)}
+
+Ziel Methode, um Frage aus Kap. 0. zu beantworten.
+
+Dazu: Wie groß ist die WSk, dass bei n Würfen einer fairen Münze höchstens $x$ mal hintereinander $Z$ (= Zahl) erscheint?
+
+$\rightarrow$ müssen dafür ein Modell erstellen:
+\begin{itemize}
+\item Erhgebisraum
+\item WSK-Maß
+\end{itemize}
+Hierzu sei \\$\Omega = \{K,Z\}^n$ \footnote{endlich, damit abzählbar $\rightarrow$ (1.1) anwendbar} und $P_n$ WM mit $P_n(\{\omega\}) = \frac{1}{|\Omega_n|} = \frac{1}{2^n}$
+\\
+$A_n =$  "Keine Z-Teilsequenz ist länger als x"\footnote{Wenn die Ereignisse in Worten knackig ausgedrückt werden können, kann und sollte man eine solche Umschreibung angeben.}\\
+$a_n(x) := |A_n(X)|$\\
+Beachte: falls $x>=n$, dann ist $a_n(x)=2^n$\\
+Für später setzen wir $a_0(x)=1$\footnote{Rekursionsanfang}. Für festes x lässt sich $a_n(x)$ rekursiv in n berechnen.\\
+
+Beispiel: jede Folge in $A_n(2)$ startet mit K,ZK oder ZZK.
+Beobachte: In $A_n(2)$ gibt es
+\begin{itemize}
+\item $a_n-1(2)$ Elemente, die mit K starten
+\item $a_n-2(2)$ Elemente, die mit ZK starten
+\item $a_n-3(2)$ Elemente, die mit ZZK starten
+\end{itemize}
+
+Also  gilt für alle $n>=3$:
+$$a_n(2) = a_{n-1}(2)+a_{n-2}(2)+a_{n-3}(2)$$
+Allgemein lässt sich zeigen:
+\begin{align}
+x)=\sum_{j=0}^x a_{n-j-1}(x) \text{ für alle } n >= x+1
+\end{align}
+
+Die gesuchte WSK ist
+\begin{align}
+P_n(A_(x)) = \frac{a_n(x)}{2^n}
+\end{align}
+
+Die Formeln (1.2) und (1.3) lassen sich gut implementieren\footnote{vgl. Übungsblatt 2}
+
+Im Bsp. aus Kap. O ist die WSK des \underline{Komplementes von $A_{50}(4)$} gesucht.
+Numerische Berechnung: $$P_50(A_{50}(4)^C) = 1-P((A_{50}(4)) = 1-\frac{a_{50}(4)}{2^50} \approx 0,55$$
+
+\subsection{Exkurs: Nützliche Formeln der Kombinatorik}
+Ziel: Formeln, die hilfreiche sind zu Bestimmung von Mächtigkeiten.
+Zur Illustration denken wir an eine Urne mit $n$ gleichförmigen Kugeln, die mit $1$ bis $n$ durchnummeriert sind.
+
+\begin{enumerate}
+\item \underline{Variationen} (alt. geordnete Stichproben) \underline{mit Widerholung}\\ 
+Man zieht k mal mit Zurücklegen; Reihenfolge ist wichtig.\\
+Die Anzahl möglicher Ergebnisse: \textbf{$n^k$}
+\item \underline{Variationen ohne Wiederholung}\\
+Man zieht k mal ohne Zurücklegen; Reihenfolge ist wichtig.
+
+Die Anzahl möglicher Ergebnisse:
+$$n*(n+1)*...*(n-k+1)) = \frac{n!}{(n-k)!}$$
+
+\item Kombinationen (alt. ungeordnete Stichproben) ohne Widerholung\\
+Man zieht k mal ohne Zurücklegen, Reigenfolge ist egal.
+Die Anzahl möglicher Ergebnisse: !!!!!!!!!!!!!!!! (n über k)
+
+\item Kombinationen mit Wiederholung
+Man zieht k mal mit Zurücklegen, Reihenfolge ist egal.
+Die Anzahl möglicher Ergebnisse:
+
+Begründung anhand eines Beispiels:
+Sei $\underbrace{n=5}_{\text{Farben}}$ und $\underbrace{k = 3}_{\text{Züge}}$.
+Jede Kombination mit Wdh. entspricht einer Folge mit Symbolen | und *.
+\end{enumerate}
+
+HIER FEHLT NE MENGE
+
+Anwendungsbeispiele in der W-Theorie
+
+\begin{enumerate}
+\item In der Übung sitzen 23 Studierende. Mit welcher WSK haben alle an unterschiedlichen Tagen Geburtstag= (Ohne Schaltjahr)
+$n = 365$; $k=23$; mit Wiederholung\\
+1. Fall): Variationen
+Modell: $\Omega$ = Menge der Variationen mit Wdh., wobei $n =365$ und $k=23$. P ist WM mit $P(\{\omega\})=\frac{1}{|\Omega|}$ (Laplace)\\
+Beachte: $|\Omega| = 365^{23}$ $(\text{a)})$
+Das Ereignis "alle an unterschiedlichen Tagen Geburtstag" ist $A$ = Menge der Variationen ohne Wdh.
+Die gesuchte WSK ist $$P(A)=\frac{|A|}{|\Omega|}=\underbrace{\frac{365!}{(365-23)!}}_{|A|}*\underbrace{\frac{1}{365^{23}}}_{|\Omega|}\approx 0,49$$\\
+Fazit: Es ist wahrscheinlicher, dass 2 Studierende am selben Tag Geburtstag haben als, dass dies nicht der Fall ist!
+\item Man zieht 2 mal ohne Zurücklegen aus einer Urne mit 7 Schwarzen und 5 weißen Kugeln. Mit welcher WSK zieht man 2 mal schwarz?
+1. Trick: nichts hindert uns daran, uns die Kugeln nummeriert zu denken
+Für die Beantwortung denkt man sic die Kuggeln durchnummeriert. Die ersten 7 Kugeln sind schwarz, die letzten 5 weiß.
+
+Modell:
+$\Omega = $ Menge der Kombinationen ohne Wiederholung mit n = 12, k = 2. P WM mit $P(\{\omega\} = \frac{1}{|\Omega|})$.
+Beachte: $|\Omega| = ... = \frac{12!}{(12-2! 2!)} = \underline{66}$
+Das Ereignis "Beide Schwarz” ist $A=\{\{\omega_1, \omega_2\}: \omega_1, \omega
+_2 \in \{1, ..., 7\} \text{ und } \omega_1 \neq \omega_2\}$
+
+Beachte: $|A| = ()$
+\end{enumerate}
+
 
 
 \end{document}
